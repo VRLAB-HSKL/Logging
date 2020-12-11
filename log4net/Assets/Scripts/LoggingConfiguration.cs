@@ -2,13 +2,17 @@
 using log4net.Config;
 using UnityEngine;
 
+/// <summary> 
+/// Klasse zum Laden der xml-Konfigurationsdatei.
+/// Stellt sicher, dass die Konfiguration geladen wird, 
+/// bevor man Logged.
+/// </summary>
 public static class LoggingConfiguration
 {
-    // Mit RuntimeInitializeLoadType.BeforeSceneLoad stellen wir sicher,
-    // dass wir Log4Net konfigurieren, bevor die Szene geladen wird.
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void ConfigureLogging()
     {
-        XmlConfigurator.Configure(new FileInfo($"{Application.dataPath}/log4net.xml"));
+        XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo($"{Application.dataPath}/Resources/log4netConfig.xml"));
+        
     }
 }
